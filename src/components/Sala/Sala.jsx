@@ -38,7 +38,7 @@ export const Sala = () => {
   const [progreso, setProgreso] = useState(null);
   const [ronda, setRonda] = useState(0);
   const [letrasUsadas, setLetrasUsadas] = useState([]);
-  const [resultadosEnviados, setResultadosEnviados] = useState(false);
+
 
   // ── Chat ──
   const [mensajes, setMensajes] = useState([]);
@@ -166,7 +166,6 @@ export const Sala = () => {
       setRonda(data.ronda);
       setTimer(data.tiempo);
       setScreen('playing');
-      setResultadosEnviados(false);
       setProgreso(null);
       setRespuestas([]);
       initEntradas(categoriasRef.current);
@@ -186,7 +185,6 @@ export const Sala = () => {
       setTimeout(() => {
         const current = { ...entradasRef.current, usuario: nombreRef.current };
         socket.emit('enviar-resultados', current);
-        setResultadosEnviados(true);
       }, 100);
 
       if (data.razon === 'manual') {
@@ -220,7 +218,6 @@ export const Sala = () => {
       setRespuestas([]);
       setScreen('waiting');
       setTimer(null);
-      setResultadosEnviados(false);
       setProgreso(null);
       if (data.letrasUsadas) setLetrasUsadas(data.letrasUsadas);
       initEntradas(categoriasRef.current);
@@ -246,7 +243,7 @@ export const Sala = () => {
       socket.removeAllListeners();
       socket.disconnect();
     };
-  }, [codigo]);
+  }, [codigo, toast]);
 
   // ═══════════════════════════════════════
   //  ACTIONS
