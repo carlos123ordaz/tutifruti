@@ -81,14 +81,6 @@ export const Sala = () => {
     }, 50);
   }
 
-  const enviarMisResultados = useCallback(() => {
-    if (resultadosEnviados) return;
-    const socket = socketRef.current;
-    if (!socket) return;
-    const current = { ...entradasRef.current, usuario: nombreRef.current };
-    socket.emit('enviar-resultados', current);
-    setResultadosEnviados(true);
-  }, [resultadosEnviados]);
 
   // ═══════════════════════════════════════
   //  SOCKET
